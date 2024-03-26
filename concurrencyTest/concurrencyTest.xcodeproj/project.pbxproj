@@ -11,6 +11,7 @@
 		744F3C8A2BB18BA600F5BDE2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744F3C892BB18BA600F5BDE2 /* ContentView.swift */; };
 		744F3C8C2BB18BA700F5BDE2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 744F3C8B2BB18BA700F5BDE2 /* Assets.xcassets */; };
 		744F3C8F2BB18BA700F5BDE2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 744F3C8E2BB18BA700F5BDE2 /* Preview Assets.xcassets */; };
+		74EEE90D2BB32BBA0066FCDC /* BookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EEE90C2BB32BBA0066FCDC /* BookModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		744F3C892BB18BA600F5BDE2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		744F3C8B2BB18BA700F5BDE2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		744F3C8E2BB18BA700F5BDE2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		74EEE90C2BB32BBA0066FCDC /* BookModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +53,7 @@
 		744F3C862BB18BA600F5BDE2 /* concurrencyTest */ = {
 			isa = PBXGroup;
 			children = (
+				74EEE90B2BB32B8E0066FCDC /* ViewModel */,
 				744F3C872BB18BA600F5BDE2 /* concurrencyTestApp.swift */,
 				744F3C892BB18BA600F5BDE2 /* ContentView.swift */,
 				744F3C8B2BB18BA700F5BDE2 /* Assets.xcassets */,
@@ -65,6 +68,14 @@
 				744F3C8E2BB18BA700F5BDE2 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		74EEE90B2BB32B8E0066FCDC /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				74EEE90C2BB32BBA0066FCDC /* BookModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,6 +148,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74EEE90D2BB32BBA0066FCDC /* BookModel.swift in Sources */,
 				744F3C8A2BB18BA600F5BDE2 /* ContentView.swift in Sources */,
 				744F3C882BB18BA600F5BDE2 /* concurrencyTestApp.swift in Sources */,
 			);
