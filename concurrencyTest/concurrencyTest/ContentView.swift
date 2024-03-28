@@ -17,27 +17,46 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
-                TextField("Search", text: $searchText, onCommit: search)
-                    .padding()
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .disableAutocorrection(true)
-                
-                if let firstBook = book?.docs?.first {
-                    RoundedRectangle(cornerRadius: 25.0)
-                        .frame(width:200, height: 200)
+                HStack{
+                    TextField("Search", text: $searchText)
                         .padding()
-                    Text(firstBook.title ?? "No Title")
-                        .font(.title)
-                    Text(firstBook.authorName?.isEmpty ?? true ? "No Author" : firstBook.authorName?.joined(separator: ", ") ?? "No Author")
-                    Text(firstBook.subtitle ?? "No subtitle")
-                    Text(firstBook.isbn?.first ?? "No ISBN")
-                    Text("Pages: \(firstBook.numberOfPagesMedian ?? 0)")
-                } else {
-                    Text("No Results")
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .disableAutocorrection(true)
+                    
+                    Button(action: {
+                        search()
+                    }, label: {
+                        Image(systemName: "magnifyingglass")
+                    })
+                    .padding()
                 }
+
+                List{
+                    ForEach(0..<(book?.docs?.count ?? 0), id: \.self){ index in
+                        if let firstBook = book?.docs?[index] {
+                            AsyncImage(url: URL(string: "https://covers.openlibrary.org/b/isbn/\(firstBook.isbn)-M.jpg")) { image in
+                                image.resizable()
+                            } placeholder: {
+                                ProgressView()
+                            }
+                            .frame(width: 50, height: 50)
+                            Text(firstBook.title ?? "No Title")
+                                .font(.title)
+                            Text(firstBook.authorName?.isEmpty ?? true ? "No Author" : firstBook.authorName?.joined(separator: ", ") ?? "No Author")
+                            Text(firstBook.subtitle ?? "No subtitle")
+                            Text(firstBook.isbn?.first ?? "No ISBN")
+                            Text("Pages: \(firstBook.numberOfPagesMedian ?? 0)")
+
+                        } else {
+                            Text("No Results")
+                        }
+                    }
+                }
+                
+              
                 Spacer()
             }
-            .navigationTitle("Book Details")
+            .navigationTitle("Search for Books")
         }
     }
     
@@ -65,25 +84,26 @@ struct ContentView: View {
 }
 
 
-func getBook(searchBook: String) async throws -> Book {
-  let urlString = "https://openlibrary.org/search.json?q=\(searchBook)"
-  guard let url = URL(string: urlString) else {
-    throw BError.invalidURL
-  }
-  let (data, response) = try await URLSession.shared.data(from: url)
 
-  guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-    throw BError.badResponse
-  }
-    print("inside getBook")
-  do {
-    let decoder = JSONDecoder()
-    decoder.keyDecodingStrategy = .convertFromSnakeCase
-    let book = try decoder.decode(Book.self, from: data)
-    return book
-  } catch {
-    throw BError.invalidData
-  }
+
+func getBook(searchBook: String) async throws -> Book {
+    let urlString = "https://openlibrary.org/search.json?q=\(searchBook)"
+    guard let url = URL(string: urlString) else {
+        throw BError.invalidURL
+    }
+    let (data, response) = try await URLSession.shared.data(from: url)
+    
+    guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+        throw BError.badResponse
+    }
+    do {
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let book = try decoder.decode(Book.self, from: data)
+        return book
+    } catch {
+        throw BError.invalidData
+    }
 }
 
 
@@ -95,4 +115,4 @@ func getBook(searchBook: String) async throws -> Book {
 }
 
 
-  
+
