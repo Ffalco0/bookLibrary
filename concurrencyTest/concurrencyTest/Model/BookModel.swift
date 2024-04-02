@@ -6,22 +6,17 @@
 //
 import Foundation
 
-//MARK: - Library
-struct Library: Codable{
-    let objects: [Book]?
-}
-
 // MARK: - Book
 struct Book: Codable {
-    let numFound, start: Int?
-    let numFoundExact: Bool?
-    let docs: [Doc]?
-    let bookNumFound: Int?
-    let q: String?
+  let numFound, start: Int?
+  let numFoundExact: Bool?
+  let docs: [Doc]
+  let bookNumFound: Int?
+  let q: String?
 }
 
 // MARK: - Doc
-struct Doc: Codable {
+struct Doc: Codable,Identifiable  {
     let authorAlternativeName, authorKey, authorName, contributor: [String]?
     let coverEditionKey: String?
     let coverI: Int?
@@ -69,6 +64,10 @@ struct Doc: Codable {
     let idScribd, idHathiTrust, idBritishLibrary, idBibliothèqueNationaleDeFrance: [String]?
     let idLibris, idDnb: [String]?
     let subtitle: String?
+    
+    var id: String {
+        return "\(title ?? "No title")-\(firstPublishYear ?? 0)"
+    }
 }
 
 
@@ -78,4 +77,5 @@ enum BError: Error {
     case badResponse
     case invalidData
 }
+
 
