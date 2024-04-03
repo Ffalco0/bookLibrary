@@ -66,7 +66,7 @@ struct Doc: Codable,Identifiable  {
     let subtitle: String?
     
     var id: String {
-        return "\(title ?? "No title")-\(firstPublishYear ?? 0)"
+        return "\(title ?? "No title")-\(firstPublishYear ?? 0)-\(coverEditionKey ?? "No coverKey")"
     }
 }
 
@@ -76,6 +76,7 @@ enum BError: Error {
     case invalidURL
     case badResponse
     case invalidData
+    case emptySearch
 }
 
 
