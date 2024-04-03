@@ -34,7 +34,11 @@ struct BookList: View {
                         Spacer()
                     }
                     BookRaw(doc:book)
-                    
+                    Button(action: {
+                        print("this book is set as favourite \(book.title ?? "")")
+                    }, label: {
+                        Text("Set as fovourite")
+                    })
                 }.task {
                     do {
                         for firstBook in vm.book {

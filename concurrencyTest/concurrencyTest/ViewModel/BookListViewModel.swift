@@ -14,6 +14,8 @@ class BookListViewModel: ObservableObject {
     
     @Published var searchText: String =  ""
     @Published var book: [Doc] = [Doc]()
+    @Published var starredBook: [Doc] = [Doc]()
+    
     
     var cancellables = Set<AnyCancellable>()
    
@@ -84,24 +86,4 @@ func downloadImage(from url: URL) async throws -> UIImage {
     
     return image
 }
-/*
-func getBook(searchBook: String) async throws -> Book {
-    let urlString = "https://openlibrary.org/search.json?q=\(searchBook)"
-    guard let url = URL(string: urlString) else {
-        throw BError.invalidURL
-    }
-    let (data, response) = try await URLSession.shared.data(from: url)
-    
-    guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-        throw BError.badResponse
-    }
-    do {
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        let book = try decoder.decode(Book.self, from: data)
-        return book
-    } catch {
-        throw BError.invalidData
-    }
-}
-*/
+
