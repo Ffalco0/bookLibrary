@@ -14,11 +14,21 @@ class BookListViewModel: ObservableObject {
     
     @Published var searchText: String =  ""
     @Published var book: [Doc] = [Doc]()
-    @Published var starredBook: [Doc] = [Doc]()
+    @Published var starredBook: [Doc] = [Doc](){
+        didSet {
+            saveStarredBooks()
+        }
+    }
     
     
     var cancellables = Set<AnyCancellable>()
     init() {
+        // Load starred books from UserDefaults
+        if let savedStarredBooksData = UserDefaults.standard.data(forKey: "starredBooks"),
+           let savedStarredBooks = try? JSONDecoder().decode([Doc].self, from: savedStarredBooksData) {
+            starredBook = savedStarredBooks
+        }
+        
         $searchText
             .dropFirst()
             .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
@@ -31,7 +41,7 @@ class BookListViewModel: ObservableObject {
     func loadMore() {
         fetchBook(for: searchText)
     }
-    
+   
     func fetchBook(for searchText: String) {
         
         guard !searchText.isEmpty else {
@@ -59,6 +69,14 @@ class BookListViewModel: ObservableObject {
             }
         }.resume()
     
+    }
+    
+    
+    // Save starred books to UserDefaults
+    private func saveStarredBooks() {
+        if let encodedData = try? JSONEncoder().encode(starredBook) {
+            UserDefaults.standard.set(encodedData, forKey: "starredBooks")
+        }
     }
 
 }
