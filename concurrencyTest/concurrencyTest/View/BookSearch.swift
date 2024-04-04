@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BookSearch: View {
-    @StateObject var vm = BookListViewModel()
+    @ObservedObject var vm: BookListViewModel
     
     var body: some View {
         NavigationView{
@@ -26,6 +26,4 @@ struct BookSearch: View {
 }
 
 
-#Preview {
-    BookSearch()
-}
+

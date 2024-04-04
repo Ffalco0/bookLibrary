@@ -18,7 +18,6 @@ class BookListViewModel: ObservableObject {
     
     
     var cancellables = Set<AnyCancellable>()
-   
     init() {
         $searchText
             .dropFirst()
@@ -52,7 +51,6 @@ class BookListViewModel: ObservableObject {
                     DispatchQueue.main.async {
                         for book in result.docs{
                             self.book.append(book)
-                            print("fetched \(result)")
                         }
                     }
                 }catch{

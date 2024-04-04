@@ -6,12 +6,24 @@
 //
 
 import SwiftUI
-import Combine
-
 
 struct ContentView: View {
+    @StateObject var vm = BookListViewModel()
+    
     var body: some View {
-        BookSearch()
+        TabView {
+            BookSearch(vm: vm)
+                .tabItem {
+                    Label("Search", systemImage: "magnifyingglass")
+                }
+            
+            StarredBookList(vm: vm)
+                .tabItem {
+                    Label("Starred", systemImage: "star.fill")
+                }
+            
+        }
     }
 }
+
 
