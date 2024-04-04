@@ -11,17 +11,28 @@ struct StarredBookList: View {
     @ObservedObject var vm: BookListViewModel
     
     var body: some View {
-        if vm.starredBook.isEmpty {
-            VStack{
-                Text("No Starred Book")
-            }
-        } else {
-            List{
-                ForEach(vm.starredBook) { book in
-                    BookRaw(doc:book)
+        NavigationView{
+            if vm.starredBook.isEmpty {
+                VStack{
+                    Text("No Starred Book")
+                }
+            } else {
+                List{
+                    ForEach(vm.starredBook.indices, id: \.self) { index in
+                        HStack {
+                            BookRaw(doc: vm.starredBook[index])
+                            Spacer()
+                            Button(action: {
+                                vm.removeStarredBook(at: index)
+                            }) {
+                                Image(systemName: "trash")
+                                    .foregroundColor(.red)
+                            }
+                        }
+                    }
                 }
             }
-        }
+        }.navigationTitle("Starred")
     }
 }
 

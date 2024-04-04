@@ -11,22 +11,22 @@ struct BookRaw: View {
     let doc: Doc
     @State var downloadedImages: [[String]: UIImage] = [:] // State to store downloadedimages
     var body: some View {
-        HStack{
-            Spacer()
-            if let image = downloadedImages[doc.isbn ?? [""]] {
-                // Display downloaded image
-                Image(uiImage: image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 200, height: 200)
-                    .frame(width: 100) // Adjust frame size
-            } else {
-                ProgressView()
-                    .frame(width: 100) // Adjust frame size
-            }
-            Spacer()
-        }
         VStack(alignment:.leading) {
+            HStack{
+                Spacer()
+                if let image = downloadedImages[doc.isbn ?? [""]] {
+                    // Display downloaded image
+                    Image(uiImage: image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 200, height: 200)
+                        .frame(width: 100) // Adjust frame size
+                } else {
+                    ProgressView()
+                        .frame(width: 100) // Adjust frame size
+                }
+                Spacer()
+            }
             Text("Title: " + (doc.title ?? "No Title"))
             Text("Author: " + (doc.authorName?.last ?? "No author"))
             Text("ISBN: " + (doc.isbn?.first ?? "No ISBN"))

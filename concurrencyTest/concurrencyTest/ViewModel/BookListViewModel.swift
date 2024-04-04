@@ -71,6 +71,14 @@ class BookListViewModel: ObservableObject {
     
     }
     
+    func removeStarredBook(at index: Int) {
+        starredBook.remove(at: index)
+    }
+    
+    func isPresented(book: Doc) -> Bool {
+        return self.starredBook.contains(where: { $0.id == book.id })
+    }
+
     
     // Save starred books to UserDefaults
     private func saveStarredBooks() {

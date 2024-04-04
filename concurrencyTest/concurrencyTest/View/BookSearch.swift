@@ -21,7 +21,7 @@ struct BookSearch: View {
             }
         }
         .searchable(text: $vm.searchText)
-        .navigationTitle("Search Book")
+        
     }
 }
 

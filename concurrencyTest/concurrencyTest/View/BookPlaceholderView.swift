@@ -27,6 +27,6 @@ struct BookPlaceholder: View {
 
             }
             
-        }
+        }.navigationTitle("Search")
     }
 }

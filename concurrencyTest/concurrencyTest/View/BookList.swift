@@ -9,29 +9,28 @@ import SwiftUI
 
 struct BookList: View {
     @ObservedObject var vm: BookListViewModel
-   
-   
+    
+    
     var body: some View {
-        List{
-            if vm.book.isEmpty{
-                VStack{
-                    Text("Searching...")
-                    ProgressView()
-                }
-            }else{
+        
+        if vm.book.isEmpty{
+            ProgressView()
+        }else{
+            List{
                 ForEach(vm.book) { book in
-                    BookRaw(doc:book)
-                    Button(action: {
-                        vm.starredBook.append(book)
-                        print(vm.starredBook.first?.title ?? "Empty")
-                    }, label: {
-                        Text("Set as fovourite")
-                    })
+                    HStack{
+                        BookRaw(doc:book)
+                        Button(action: {
+                            if !vm.isPresented(book: book){
+                                vm.starredBook.append(book)
+                            }
+                        }, label: {
+                            Image(systemName: vm.isPresented(book: book) ? "star.fill" : "star")
+                        })
+                    }
                 }
             }
-            
         }
-        
     }
 }
 
